@@ -1,7 +1,10 @@
 # Laravel/Lumen Notify 通知库
-![PHP VERSION](https://img.shields.io/badge/php->=5.6-blue)
+![PHP VERSION](https://img.shields.io/badge/php-^7.0-blue)
 ![MIT](https://img.shields.io/github/license/qklandy/laravel-notifys) 
 
+因依赖包guzzlehttp/client版本限制，本要求PHP版本要求7.0.0, 如果不需要可以自行定义移除依赖包
+
+当前支持的通知应用:
 1. 支持钉钉机器人通知
 2. 支持微信企业机器人通知
 
