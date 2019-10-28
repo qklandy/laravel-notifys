@@ -9,16 +9,17 @@ class Weixin
      * @param array $atMobiles
      * @param array $atMembers
      * @param bool  $isAtAll
+     * @param bool  $injectTime
      * @return array
      */
-    public function text($content, $atMobiles = [], $atMembers = [], $isAtAll = false)
+    public function text($content, $atMobiles = [], $atMembers = [], $isAtAll = false, $injectTime = false)
     {
         // Notify::text("测试文字，不通知所有人", [mobile], [members], false);
         // Notify::text(function(){return [];}, "测试文字，不通知所有人", [mobile], [members], false);
         $data = [
             "msgtype" => "text",
             "text"    => [
-                "content"               => $content,
+                "content"               => ($injectTime ? date('Y-m-d H:i:s') . PHP_EOL : "") . $content,
                 "mentioned_list"        => $atMembers ?: [],
                 "mentioned_mobile_list" => $atMobiles ?: ($isAtAll ? ['@all'] : []),
             ],
@@ -36,13 +37,12 @@ class Weixin
     }
 
     /**
-     * @param       $title
-     * @param       $markdown
-     * @param array $atMobiles
-     * @param bool  $isAtAll
+     * @param        $markdown
+     * @param bool   $injectTime
+     * @param string $prefix
      * @return array
      */
-    public function markdown($markdown)
+    public function markdown($markdown, $injectTime = false, $prefix = "")
     {
 //          $markdown = <<<'MRD'
 //## 测试文字不通知所有人
@@ -55,7 +55,7 @@ class Weixin
         $data = [
             "msgtype"  => "markdown",
             "markdown" => [
-                "content" => $markdown
+                "content" => ($injectTime ? $prefix . date('Y-m-d H:i:s') . PHP_EOL : "") . $markdown
             ]
         ];
 
