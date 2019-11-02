@@ -1,11 +1,10 @@
 <?php
+// https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.karFPe&treeId=257&articleId=105735&docType=1#s2
 
 namespace Qklin\Notify\Parse;
 
-// https://open-doc.dingtalk.com/docs/doc.htm?spm=a219a.7629140.0.0.karFPe&treeId=257&articleId=105735&docType=1#s2
-class Dingding
+class Dingding implements ParseBase
 {
-
     /**
      * @param       $content
      * @param array $atMobiles
@@ -13,7 +12,7 @@ class Dingding
      * @param bool  $injectTime
      * @return array
      */
-    public function text($content, $atMobiles = [], $isAtAll = false, $injectTime = false)
+    public function text($content, $atMobiles = [], $atMembers = [], $isAtAll = false, $injectTime = false)
     {
         // Notify::text("测试文字，不通知所有人", [mobile], false);
         // Notify::text(function(){return [];}, "测试文字，不通知所有人", [mobile], false);
@@ -130,6 +129,14 @@ class Dingding
         }
 
         return $data;
+    }
+
+    /**
+     * @param $imagePath
+     */
+    public function image($imagePath)
+    {
+        // nothing
     }
 
     /**

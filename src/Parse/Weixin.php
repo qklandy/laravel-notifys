@@ -1,8 +1,9 @@
 <?php
+//https://work.weixin.qq.com/api/doc#90000/90136/91770
 
 namespace Qklin\Notify\Parse;
 
-class Weixin
+class Weixin implements ParseBase
 {
     /**
      * @param       $content
@@ -16,10 +17,15 @@ class Weixin
     {
         // Notify::text("测试文字，不通知所有人", [mobile], [members], false);
         // Notify::text(function(){return [];}, "测试文字，不通知所有人", [mobile], [members], false);
+        // 判断长度不能超过2048
+        $content = ($injectTime ? date('Y-m-d H:i:s') . PHP_EOL : "") . $content;
+        if (strlen($content) > 2048) {
+            $markdown = substr($content, 0, 2048);
+        }
         $data = [
             "msgtype" => "text",
             "text"    => [
-                "content"               => ($injectTime ? date('Y-m-d H:i:s') . PHP_EOL : "") . $content,
+                "content"               => $content,
                 "mentioned_list"        => $atMembers ?: [],
                 "mentioned_mobile_list" => $atMobiles ?: ($isAtAll ? ['@all'] : []),
             ],
@@ -42,7 +48,7 @@ class Weixin
      * @param string $prefix
      * @return array
      */
-    public function markdown($markdown, $injectTime = false, $prefix = "")
+    public function markdown($title, $markdown, $atMobiles = [], $isAtAll = false, $injectTime = false, $prefix = "")
     {
 //          $markdown = <<<'MRD'
 //## 测试文字不通知所有人
@@ -51,11 +57,17 @@ class Weixin
 //2. 333
 //MRD;
 //
-//          Notify::markdown(function(){return [];}, $markdown);
+//          Notify::markdown(function(){return [];}, $title, $markdown, [], [], false);
+
+        $markdown = ($injectTime ? $prefix . date('Y-m-d H:i:s') . PHP_EOL : "") . $markdown;
+        // 判断长度不能超过4096
+        if (strlen($markdown) > 4096) {
+            $markdown = substr($markdown, 0, 4096);
+        }
         $data = [
             "msgtype"  => "markdown",
             "markdown" => [
-                "content" => ($injectTime ? $prefix . date('Y-m-d H:i:s') . PHP_EOL : "") . $markdown
+                "content" => $markdown
             ]
         ];
 
@@ -77,6 +89,15 @@ class Weixin
         ];
 
         return $data;
+    }
+
+    /**
+     * @param $articles
+     * @return array
+     */
+    public function feedCard($lists)
+    {
+        return $this->news($lists);
     }
 
     /**
