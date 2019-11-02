@@ -8,11 +8,14 @@ class Dingding implements ParseBase
     /**
      * @param       $content
      * @param array $atMobiles
+     * @param array $atMembers
      * @param bool  $isAtAll
      * @param bool  $injectTime
      * @return array
      */
-    public function text($content, $atMobiles = [], $atMembers = [], $isAtAll = false, $injectTime = false)
+    public function text(
+        $content, $atMobiles = [], $atMembers = [],
+        $isAtAll = false, $injectTime = false)
     {
         // Notify::text("测试文字，不通知所有人", [mobile], false);
         // Notify::text(function(){return [];}, "测试文字，不通知所有人", [mobile], false);
@@ -58,14 +61,18 @@ class Dingding implements ParseBase
     }
 
     /**
-     * @param       $title
-     * @param       $content
-     * @param array $atMobiles
-     * @param bool  $isAtAll
-     * @param bool  $injectTime
+     * @param        $title
+     * @param        $content
+     * @param array  $atMobiles
+     * @param array  $atMembers
+     * @param bool   $isAtAll
+     * @param bool   $injectTime
+     * @param string $prefix
      * @return array
      */
-    public function markdown($title, $content, $atMobiles = [], $isAtAll = false, $injectTime = false, $prefix = "")
+    public function markdown(
+        $title, $content, $atMobiles = [], $atMembers = [],
+        $isAtAll = false, $injectTime = false, $prefix = "")
     {
 //          $markdown = <<<'MRD'
 //## 测试文字不通知所有人
@@ -74,7 +81,7 @@ class Dingding implements ParseBase
 //2. 333
 //MRD;
 //
-//          Notify::markdown(function(){return [];}, "markdown演示", $markdown, [mobile], false);
+//          Notify::markdown(function(){return [];}, "markdown演示", $markdown, [mobile], [], false);
         $data = [
             "msgtype"  => "markdown",
             "markdown" => [
@@ -104,7 +111,9 @@ class Dingding implements ParseBase
      * @param int   $hideAvatar
      * @return array
      */
-    public function actionCard($title, $text, $singleTitle, $singleURL, $btns = [], $btnOrientation = 0, $hideAvatar = 0)
+    public function actionCard(
+        $title, $text, $singleTitle, $singleURL,
+        $btns = [], $btnOrientation = 0, $hideAvatar = 0)
     {
 //        Notify::actionCard(function(){return [];}, "标题", "内容", "阅读全文", "http://www.baidu.com");
 //        Notify::actionCard(function(){return [];}, "标题", "内容", "阅读全文", "http://www.baidu.com", [

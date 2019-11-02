@@ -43,12 +43,18 @@ class Weixin implements ParseBase
     }
 
     /**
+     * @param        $title
      * @param        $markdown
+     * @param array  $atMobiles
+     * @param array  $atMembers
+     * @param bool   $isAtAll
      * @param bool   $injectTime
      * @param string $prefix
      * @return array
      */
-    public function markdown($title, $markdown, $atMobiles = [], $isAtAll = false, $injectTime = false, $prefix = "")
+    public function markdown(
+        $title, $markdown, $atMobiles = [], $atMembers = [],
+        $isAtAll = false, $injectTime = false, $prefix = "")
     {
 //          $markdown = <<<'MRD'
 //## 测试文字不通知所有人
@@ -92,7 +98,7 @@ class Weixin implements ParseBase
     }
 
     /**
-     * @param $articles
+     * @param $lists
      * @return array
      */
     public function feedCard($lists)
@@ -101,8 +107,7 @@ class Weixin implements ParseBase
     }
 
     /**
-     * @param $title
-     * @param $lists
+     * @param $articles
      * @return array
      */
     public function news($articles)
