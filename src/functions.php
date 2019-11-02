@@ -18,7 +18,7 @@ if (!function_exists('qklin_http_request')) {
      * @param $data
      * @return false|string
      */
-    function qklin_http_request($method, $api, $playload, $type = 'form_params', $header = [], $toArray = false)
+    function qklin_http_request($method, $api, $playload, $type = 'form_params', $header = [], $toArray = true)
     {
         $client = new \GuzzleHttp\Client();
         $options = [];

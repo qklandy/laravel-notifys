@@ -52,7 +52,7 @@ class Weixin
      * @param bool $toArray
      * @return bool
      */
-    public function request($api, $playload, $toArray = false)
+    public function request($api, $playload, $toArray = true)
     {
         $result = qklin_http_request('POST', $api, $playload, 'json', [], $toArray);
         if ($result['httpcode'] != 200) {
