@@ -53,6 +53,23 @@ class Manager
     }
 
     /**
+     * 设置当前biz
+     * @param $biz
+     */
+    public function setBiz($biz)
+    {
+        $this->_biz = $biz;
+    }
+
+    /**
+     * 获取当前biz
+     */
+    public function getBiz()
+    {
+        return $this->_biz;
+    }
+
+    /**
      * 调用
      * @param $method
      * @param $arguments
